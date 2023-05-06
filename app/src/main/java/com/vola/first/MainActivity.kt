@@ -10,7 +10,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun test() {
-        // test
+        // test:
+    }
+
+    fun test1() {
+        // test1
     }
 
 }
