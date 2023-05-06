@@ -17,4 +17,8 @@ class MainActivity : AppCompatActivity() {
         // test1
     }
 
+    fun test2() {
+        //  test from mac
+    }
+
 }
