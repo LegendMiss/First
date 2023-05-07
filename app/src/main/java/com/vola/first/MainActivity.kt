@@ -8,17 +8,4 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
-
-    fun test() {
-        // test:
-    }
-
-    fun test1() {
-        // test1
-    }
-
-    fun test2() {
-        //  test from mac
-    }
-
 }
