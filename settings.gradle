@@ -16,3 +16,4 @@ rootProject.name = "First"
 include ':app'
 include ':lib-base'
 include ':lib-commom'
+include ':lib-java'
