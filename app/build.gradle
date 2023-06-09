@@ -3,22 +3,31 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+//  完整的方式 提升性能
+def versionsConfig = rootProject.ext.versionsConfig
+def appID = rootProject.ext.appID
+
 android {
-    namespace 'com.vola.first'
-    compileSdk 33
+    namespace appID.app
+    compileSdk versionsConfig.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.vola.first"
-        minSdk 24
-        targetSdk 33
+        applicationId appID.app
+        minSdk versionsConfig.minSdkVersion
+        targetSdk versionsConfig.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "Boolean", "isRelase", String.valueOf(isRelase)
+
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "debug", "\"${baseUrl.debugUrl}\"")
+        }
         release {
+            buildConfigField("String", "release", "\"${baseUrl.releaseUrl}\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -30,9 +39,16 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
 
-   api project(':lib-base')
+    api project(':lib-base')
+    if (isRelase) {
+        api project(':module-login')
+    }
 }

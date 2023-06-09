@@ -3,13 +3,17 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+//  完整的方式 提升性能
+def versionsConfig = rootProject.ext.versionsConfig
+def appID = rootProject.ext.appID
+
 android {
-    namespace 'com.vola.lib_base'
-    compileSdk 33
+    namespace appID.lib_base
+    compileSdk versionsConfig.compileSdkVersion
 
     defaultConfig {
-        minSdk 24
-        targetSdk 33
+        minSdk versionsConfig.minSdkVersion
+        targetSdk versionsConfig.targetSdkVersion
 
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -32,5 +36,8 @@ android {
 dependencies {
 
     api project(':lib-commom')
+    //  引入依赖
+    baseImplementation.each { k, v -> api v }
+
 
 }

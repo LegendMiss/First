@@ -1,6 +1,10 @@
-plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+apply plugin:'org.jetbrains.kotlin.android'
+if (isRelase) {
+    //  正式环境
+    apply plugin: 'com.android.library'
+} else {
+    //  测试环境，可以独立运行
+    apply plugin: 'com.android.application'
 }
 
 //  完整的方式 提升性能
@@ -8,13 +12,19 @@ def versionsConfig = rootProject.ext.versionsConfig
 def appID = rootProject.ext.appID
 
 android {
-    namespace appID.lib_common
+    namespace appID.module_login
     compileSdk versionsConfig.compileSdkVersion
 
     defaultConfig {
+
+        if (!isRelase) {    //  若非正式环境，则可独立运行
+            applicationId appID.module_login
+        }
+
         minSdk versionsConfig.minSdkVersion
         targetSdk versionsConfig.targetSdkVersion
 
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
 
@@ -35,6 +45,8 @@ android {
 
 dependencies {
 
-    commonImplementation.each { k, v -> api v }
-
+    api project(':lib-base')
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 }
