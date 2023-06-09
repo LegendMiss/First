@@ -1,20 +1,17 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    namespace 'com.vola.first'
+    namespace 'com.vola.lib_base'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.vola.first"
         minSdk 24
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -34,5 +31,6 @@ android {
 
 dependencies {
 
-   api project(':lib-base')
+    api project(':lib-commom')
+
 }
